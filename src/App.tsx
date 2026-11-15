@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Navbar } from './components/Navbar';
+import { BlogPage } from './components/BlogPage';
 import { ServicesPage } from './components/ServicesPage';
 import { Hero } from './components/Hero';
 import { Revolution } from './components/Revolution';
@@ -14,10 +15,10 @@ import { QuickViewModal } from './components/QuickViewModal';
 import { ServiceBookingModal } from './components/ServiceBookingModal';
 import { CartItem, BikeProduct, BookingRequest, ServicePackage } from './types';
 import { BESTSELLER_BIKES } from './data/bikes';
-import { CheckCircle2, Wrench, Bike, SlidersHorizontal } from 'lucide-react';
+import { CheckCircle2, Wrench, Bike, SlidersHorizontal, BookOpen } from 'lucide-react';
 
 function App() {
-  const [currentPage, setCurrentPage] = useState<'services' | 'home'>('services');
+  const [currentPage, setCurrentPage] = useState<'blog' | 'services' | 'home'>('blog');
   const [cart, setCart] = useState<CartItem[]>([
     { product: BESTSELLER_BIKES[0], quantity: 1, selectedColor: '#3b4e39' },
   ]);
@@ -83,7 +84,7 @@ function App() {
     setIsCartOpen(false);
   };
 
-  const handleNavigate = (page: 'home' | 'services', hash?: string) => {
+  const handleNavigate = (page: 'home' | 'services' | 'blog', hash?: string) => {
     setCurrentPage(page);
     if (hash) {
       setTimeout(() => {
@@ -107,16 +108,28 @@ function App() {
 
   return (
     <div className="min-h-screen bg-[#060607] text-[#f5f5f7] flex flex-col font-['DM_Sans'] antialiased selection:bg-[#ff6900] selection:text-white">
-      {/* Top Bar Switcher: Easily toggle between the new Service Page and the Bike Catalog */}
+      {/* Top Bar Switcher: Easily navigate across the 3 views */}
       <aside
         className="w-full bg-gradient-to-r from-[#111114] via-[#1a1410] to-[#111114] border-b border-orange-500/20 py-2 px-4 text-center text-xs text-neutral-300 flex items-center justify-between gap-3 flex-wrap"
         aria-label="Page navigation bar"
       >
         <div className="flex items-center gap-2">
-          <span className="text-[11px] font-semibold text-neutral-400 hidden md:inline">
-            Active View:
+          <span className="text-[11px] font-semibold text-neutral-400 hidden sm:inline">
+            Active Page:
           </span>
           <div className="inline-flex p-0.5 rounded-full bg-neutral-900 border border-white/10 text-xs">
+            <button
+              type="button"
+              onClick={() => handleNavigate('blog')}
+              className={`px-3 py-1 rounded-full font-semibold transition-all flex items-center gap-1.5 ${
+                currentPage === 'blog'
+                  ? 'bg-[#ff6900] text-white shadow-md'
+                  : 'text-neutral-400 hover:text-white'
+              }`}
+            >
+              <BookOpen className="w-3.5 h-3.5" />
+              <span>Blog Page (New)</span>
+            </button>
             <button
               type="button"
               onClick={() => handleNavigate('services')}
@@ -127,7 +140,7 @@ function App() {
               }`}
             >
               <Wrench className="w-3.5 h-3.5" />
-              <span>Service Page (Mockup)</span>
+              <span>Services Page</span>
             </button>
             <button
               type="button"
@@ -139,7 +152,7 @@ function App() {
               }`}
             >
               <Bike className="w-3.5 h-3.5" />
-              <span>Bike Catalog & Showroom</span>
+              <span>Bike Catalog</span>
             </button>
           </div>
         </div>
@@ -173,9 +186,18 @@ function App() {
 
       {/* Main Page Content */}
       <main className="flex-1 flex flex-col">
-        {currentPage === 'services' ? (
+        {currentPage === 'blog' ? (
           /* ======================================================== */
-          /* THE EXACT SERVICE PAGE FROM THE USER'S MOCKUP IMAGE       */
+          /* 1. THE EXACT BLOG PAGE FROM THE USER'S MOCKUP IMAGE      */
+          /* ======================================================== */
+          <BlogPage
+            onNavigateHome={() => handleNavigate('home')}
+            onExploreProducts={() => handleNavigate('home', '#bestsellers')}
+            showPlaceholdersOnly={showPlaceholdersOnly}
+          />
+        ) : currentPage === 'services' ? (
+          /* ======================================================== */
+          /* 2. THE SERVICES PAGE FROM THE PREVIOUS MOCKUP            */
           /* ======================================================== */
           <ServicesPage
             onNavigateToCatalog={() => handleNavigate('home', '#bestsellers')}
@@ -184,7 +206,7 @@ function App() {
           />
         ) : (
           /* ======================================================== */
-          /* BIKE CATALOG SHOWROOM PAGE                               */
+          /* 3. BIKE CATALOG SHOWROOM HOME PAGE                       */
           /* ======================================================== */
           <>
             <Hero

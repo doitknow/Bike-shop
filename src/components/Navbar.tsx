@@ -7,8 +7,8 @@ interface NavbarProps {
   onOpenCart: () => void;
   showPlaceholdersOnly: boolean;
   onTogglePlaceholders: () => void;
-  currentPage: 'home' | 'services';
-  onNavigate: (page: 'home' | 'services', hash?: string) => void;
+  currentPage: 'home' | 'services' | 'blog';
+  onNavigate: (page: 'home' | 'services' | 'blog', hash?: string) => void;
   onBookServiceClick: () => void;
 }
 
@@ -28,13 +28,13 @@ export const Navbar: React.FC<NavbarProps> = ({
     { name: 'Home', page: 'home' as const, href: '#top' },
     { name: 'About', page: 'home' as const, href: '#revolution' },
     { name: 'Services', page: 'services' as const, href: '#services' },
-    { name: 'Blog', page: 'home' as const, href: '#news' },
+    { name: 'Blog', page: 'blog' as const, href: '#top' },
     { name: 'Shop', page: 'home' as const, href: '#bestsellers' },
     { name: 'FAQ', page: 'services' as const, href: '#faq' },
     { name: 'Contact', page: 'services' as const, href: '#contact-info' },
   ];
 
-  const handleLinkClick = (page: 'home' | 'services', href?: string) => {
+  const handleLinkClick = (page: 'home' | 'services' | 'blog', href?: string) => {
     onNavigate(page, href);
     setMobileMenuOpen(false);
   };
@@ -67,7 +67,8 @@ export const Navbar: React.FC<NavbarProps> = ({
           {navLinks.map((link) => {
             const isCurrent =
               (link.name === 'Services' && currentPage === 'services') ||
-              (link.name === 'Home' && currentPage === 'home');
+              (link.name === 'Home' && currentPage === 'home') ||
+              (link.name === 'Blog' && currentPage === 'blog');
 
             return (
               <button

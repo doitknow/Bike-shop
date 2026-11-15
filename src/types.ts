@@ -75,4 +75,22 @@ export interface BookingRequest {
   notes?: string;
 }
 
+export interface BlogPost {
+  id: string;
+  title: string;
+  author: {
+    name: string;
+    avatar: string;
+    role?: string;
+  };
+  date: string;
+  readTime: string;
+  image: string;
+  excerpt: string;
+  content: string[];
+  tags: string[];
+  placeName: string;
+}
+
+
 
