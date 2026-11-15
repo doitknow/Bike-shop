@@ -131,22 +131,6 @@ export const Hero: React.FC<HeroProps> = ({ onAddToCart, onQuickView, showPlaceh
                 </span>
               </div>
             </div>
-
-            {/* Quick Guarantees */}
-            {/* <div className="pt-4 border-t border-neutral-800/80 grid grid-cols-2 sm:grid-cols-3 gap-4 text-xs text-neutral-400">
-              <div className="flex items-center gap-2">
-                <ShieldCheck className="w-4 h-4 text-[#ff6900]" />
-                <span>Lifetime Frame Warranty</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Zap className="w-4 h-4 text-[#ff6900]" />
-                <span>Free Test Rides</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Check className="w-4 h-4 text-[#ff6900]" />
-                <span>Fully Assembled Delivery</span>
-              </div>
-            </div> */}
           </div>
 
           {/* Right Column - Bike Placed Directly on Road.png with Seamless Smooth Edge Transitions */}

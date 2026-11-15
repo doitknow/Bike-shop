@@ -296,13 +296,50 @@ body {
   will-change: transform, opacity;
 }
 
+/* Vertical infinite marquee animations for Ride. Learn. Connect. */
+@keyframes marqueeScrollUp {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(0, -50%, 0);
+  }
+}
+
+@keyframes marqueeScrollDown {
+  0% {
+    transform: translate3d(0, -50%, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.animate-marquee-up {
+  animation: marqueeScrollUp 24s linear infinite;
+  will-change: transform;
+}
+
+.animate-marquee-down {
+  animation: marqueeScrollDown 26s linear infinite;
+  will-change: transform;
+}
+
+/* Pause on hover so user can comfortably inspect cards */
+.marquee-container:hover .animate-marquee-up,
+.marquee-container:hover .animate-marquee-down {
+  animation-play-state: paused;
+}
+
 /* Accessible reduced motion: remove spatial translation and rotation while keeping final state */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
   .animate-bike-ride-in,
-  .animate-bike-cruise {
+  .animate-bike-cruise,
+  .animate-marquee-up,
+  .animate-marquee-down {
     animation: none;
     opacity: 1;
     transform: none;
