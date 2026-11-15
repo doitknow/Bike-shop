@@ -3,6 +3,7 @@ import { HERO_BIKE } from '../data/bikes';
 import { BikeImageSlot } from './BikeImageSlot';
 import { ArrowRight, ShoppingBag, Check, ShieldCheck, Zap } from 'lucide-react';
 import { BikeProduct } from '../types';
+import roadImage from '../Bike-Roads/Road.png';
 
 interface HeroProps {
   onAddToCart: (product: BikeProduct, color?: string) => void;
@@ -10,13 +11,10 @@ interface HeroProps {
   showPlaceholdersOnly: boolean;
 }
 
-export type RoadStyle = 'asphalt' | 'scenic' | 'sunset';
-
 export const Hero: React.FC<HeroProps> = ({ onAddToCart, onQuickView, showPlaceholdersOnly }) => {
   const [selectedColor, setSelectedColor] = useState(
     HERO_BIKE.colorVariants?.[0]?.hex || HERO_BIKE.colors[0]
   );
-  const [roadStyle, setRoadStyle] = useState<RoadStyle>('asphalt');
 
   const currentVariant =
     HERO_BIKE.colorVariants?.find((v) => v.hex === selectedColor) || {
@@ -96,11 +94,10 @@ export const Hero: React.FC<HeroProps> = ({ onAddToCart, onQuickView, showPlaceh
                         onClick={() => setSelectedColor(variant.hex)}
                         title={variant.name}
                         aria-label={`Select color ${variant.name}`}
-                        className={`group relative w-7 h-7 rounded-full border-2 transition-all flex items-center justify-center ${
-                          selectedColor === variant.hex
+                        className={`group relative w-7 h-7 rounded-full border-2 transition-all flex items-center justify-center ${selectedColor === variant.hex
                             ? 'border-white scale-110 shadow-[0_0_12px_rgba(255,255,255,0.6)]'
                             : 'border-white/20 hover:scale-105 opacity-80 hover:opacity-100 hover:border-white/50'
-                        }`}
+                          }`}
                         style={{ backgroundColor: variant.hex }}
                       >
                         {selectedColor === variant.hex && (
@@ -118,11 +115,10 @@ export const Hero: React.FC<HeroProps> = ({ onAddToCart, onQuickView, showPlaceh
                         type="button"
                         onClick={() => setSelectedColor(color)}
                         aria-label={`Select color ${color}`}
-                        className={`w-6 h-6 rounded-full border-2 transition-all flex items-center justify-center ${
-                          selectedColor === color
+                        className={`w-6 h-6 rounded-full border-2 transition-all flex items-center justify-center ${selectedColor === color
                             ? 'border-white scale-110 shadow-[0_0_10px_rgba(255,255,255,0.4)]'
                             : 'border-transparent hover:scale-105 opacity-80 hover:opacity-100'
-                        }`}
+                          }`}
                         style={{ backgroundColor: color }}
                       >
                         {selectedColor === color && <Check className="w-3 h-3 text-white drop-shadow" />}
@@ -153,119 +149,31 @@ export const Hero: React.FC<HeroProps> = ({ onAddToCart, onQuickView, showPlaceh
             </div>
           </div>
 
-          {/* Right Column - Bike Placed on the Road with Seamless Smooth Background Transition */}
-          <div className="lg:col-span-7 relative flex flex-col items-center justify-center overflow-visible">
+          {/* Right Column - Bike Placed Directly on Road.png with Seamless Background Transition */}
+          <div className="lg:col-span-7 relative flex items-center justify-center overflow-visible">
             {/* Soft ambient reactive backlight that smoothly breathes into #060607 */}
             <div
               className="absolute w-[110%] h-[110%] -top-10 left-1/2 -translate-x-1/2 rounded-[100%] blur-[130px] pointer-events-none transition-colors duration-700 opacity-20"
               style={{ backgroundColor: selectedColor }}
             />
 
-            {/* Road Mode Controls & Indicator */}
-            <div className="relative z-20 flex items-center justify-between w-full max-w-2xl px-2 sm:px-4 mb-2">
-              <div className="flex items-center gap-2 text-[11px] font-mono text-neutral-400">
-                <span className="w-2 h-2 rounded-full bg-[#ff6900] animate-pulse" />
-                <span className="text-white/80 font-medium">
-                  {roadStyle === 'asphalt' && 'Bike-Roads / Highway Route 01 (Track)'}
-                  {roadStyle === 'scenic' && 'Bike-Roads / Road 1 (Scenic Sky)'}
-                  {roadStyle === 'sunset' && 'Bike-Roads / Road 2 (Sunset)'}
-                </span>
-              </div>
-
-              {/* Minimal floating switcher */}
-              <div className="flex items-center gap-1 p-1 rounded-full bg-neutral-900/60 backdrop-blur-md border border-white/10 text-xs">
-                <button
-                  type="button"
-                  onClick={() => setRoadStyle('asphalt')}
-                  className={`px-3 py-1 rounded-full text-xs font-semibold transition-all ${
-                    roadStyle === 'asphalt'
-                      ? 'bg-[#ff6900] text-white shadow-md'
-                      : 'text-neutral-400 hover:text-white'
-                  }`}
-                >
-                  Road 1 Track
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setRoadStyle('scenic')}
-                  className={`px-3 py-1 rounded-full text-xs font-semibold transition-all ${
-                    roadStyle === 'scenic'
-                      ? 'bg-[#ff6900] text-white shadow-md'
-                      : 'text-neutral-400 hover:text-white'
-                  }`}
-                >
-                  Road 1 Scenic
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setRoadStyle('sunset')}
-                  className={`px-3 py-1 rounded-full text-xs font-semibold transition-all hidden sm:inline-block ${
-                    roadStyle === 'sunset'
-                      ? 'bg-[#ff6900] text-white shadow-md'
-                      : 'text-neutral-400 hover:text-white'
-                  }`}
-                >
-                  Road 2 Sunset
-                </button>
-              </div>
-            </div>
-
             {/* Seamless Stage Area with No Solid Frame */}
             <div className="relative w-full max-w-2xl py-4 sm:py-6 overflow-visible flex items-center justify-center">
-              {/* Background Environment with Smooth Feathered Radial Transition into #060607 */}
-              <div className="absolute inset-0 z-0 pointer-events-none overflow-visible flex items-end justify-center">
-                {roadStyle === 'asphalt' ? (
-                  /* Smooth Asphalt Road Surface fading seamlessly in all directions */
-                  <div
-                    className="w-[115%] max-w-3xl h-[65%] absolute bottom-[-4%] left-1/2 -translate-x-1/2"
-                    style={{
-                      maskImage:
-                        'radial-gradient(ellipse 65% 55% at 50% 60%, black 35%, transparent 95%)',
-                      WebkitMaskImage:
-                        'radial-gradient(ellipse 65% 55% at 50% 60%, black 35%, transparent 95%)',
-                    }}
-                  >
-                    <img
-                      src="/images/roads/road-strip-hq.png"
-                      alt="Asphalt road from Bike-Roads road 1"
-                      className="w-full h-full object-contain filter contrast-[1.08] brightness-[0.98]"
-                    />
-                  </div>
-                ) : roadStyle === 'scenic' ? (
-                  /* Scenic Road 1 with Smooth Feathered Vignette (no solid box) */
-                  <div
-                    className="w-[110%] max-w-2xl h-[95%] absolute inset-0 m-auto"
-                    style={{
-                      maskImage:
-                        'radial-gradient(ellipse 65% 60% at 50% 50%, black 40%, transparent 95%)',
-                      WebkitMaskImage:
-                        'radial-gradient(ellipse 65% 60% at 50% 50%, black 40%, transparent 95%)',
-                    }}
-                  >
-                    <img
-                      src="/images/roads/road-1-hq.jpg"
-                      alt="Scenic Highway Road 1 from Bike-Roads"
-                      className="w-full h-full object-cover object-bottom filter contrast-[1.03] brightness-90"
-                    />
-                  </div>
-                ) : (
-                  /* Sunset Road 2 with Smooth Feathered Vignette */
-                  <div
-                    className="w-[110%] max-w-2xl h-[95%] absolute inset-0 m-auto"
-                    style={{
-                      maskImage:
-                        'radial-gradient(ellipse 65% 60% at 50% 50%, black 40%, transparent 95%)',
-                      WebkitMaskImage:
-                        'radial-gradient(ellipse 65% 60% at 50% 50%, black 40%, transparent 95%)',
-                    }}
-                  >
-                    <img
-                      src="/images/roads/road-2-hq.jpg"
-                      alt="Sunset Road 2 from Bike-Roads"
-                      className="w-full h-full object-cover object-bottom filter contrast-[1.03] brightness-90"
-                    />
-                  </div>
-                )}
+              {/* Smooth Asphalt Road Surface directly using Road.png fading seamlessly in all directions */}
+              <div
+                className="w-[115%] max-w-3xl h-[65%] absolute bottom-[-4%] left-1/2 -translate-x-1/2 pointer-events-none"
+                style={{
+                  maskImage:
+                    'radial-gradient(ellipse 65% 55% at 50% 60%, black 35%, transparent 95%)',
+                  WebkitMaskImage:
+                    'radial-gradient(ellipse 65% 55% at 50% 60%, black 35%, transparent 95%)',
+                }}
+              >
+                <img
+                  src={roadImage}
+                  alt="Asphalt Road"
+                  className="w-full h-full object-contain filter contrast-[1.08] brightness-[0.98]"
+                />
               </div>
 
               {/* Bike Container Placed Directly on the Road */}

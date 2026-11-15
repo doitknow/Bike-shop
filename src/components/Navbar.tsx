@@ -70,9 +70,8 @@ export const Navbar: React.FC<NavbarProps> = ({
                 type="button"
                 onClick={() => handleLinkClick(link.page, link.href)}
                 aria-current={isCurrent ? 'page' : undefined}
-                className={`relative text-xs tracking-wide font-medium transition-colors hover:text-white py-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#ff6900] rounded ${
-                  isCurrent ? 'text-white font-semibold' : 'text-neutral-400'
-                }`}
+                className={`relative text-xs tracking-wide font-medium transition-colors hover:text-white py-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#ff6900] rounded ${isCurrent ? 'text-white font-semibold' : 'text-neutral-400'
+                  }`}
               >
                 {link.name}
                 {isCurrent && (
@@ -90,11 +89,10 @@ export const Navbar: React.FC<NavbarProps> = ({
             type="button"
             onClick={onTogglePlaceholders}
             title={showPlaceholdersOnly ? 'Switch to Bike Images' : 'Switch to Bike Placeholders'}
-            className={`hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-mono transition-all border ${
-              showPlaceholdersOnly
+            className={`hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-mono transition-all border ${showPlaceholdersOnly
                 ? 'bg-[#ff6900]/20 border-[#ff6900] text-orange-300'
                 : 'bg-neutral-900 border-white/10 text-neutral-400 hover:text-white hover:border-white/20'
-            }`}
+              }`}
           >
             <SlidersHorizontal className="w-3.5 h-3.5 text-[#ff6900]" />
             <span className="text-[11px]">{showPlaceholdersOnly ? 'Mode: Slots' : 'Mode: Preview'}</span>
