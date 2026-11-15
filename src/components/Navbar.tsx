@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Bike, Heart, ShoppingBag, Menu, X, SlidersHorizontal, Wrench, ArrowUpRight } from 'lucide-react';
+import { Bike, Heart, ShoppingBag, Menu, X, Wrench, ArrowUpRight } from 'lucide-react';
 import speedLogo from '../Logo/BMAX BIKE Speed Logo.png';
 
 export type NavigationPage = 'home' | 'about' | 'services' | 'blog' | 'shop' | 'faq' | 'contact';
@@ -8,8 +8,8 @@ interface NavbarProps {
   cartCount: number;
   wishlistCount: number;
   onOpenCart: () => void;
-  showPlaceholdersOnly: boolean;
-  onTogglePlaceholders: () => void;
+  showPlaceholdersOnly?: boolean;
+  onTogglePlaceholders?: () => void;
   currentPage: NavigationPage;
   onNavigate: (page: NavigationPage, hash?: string) => void;
   onBookServiceClick: () => void;
@@ -19,8 +19,6 @@ export const Navbar: React.FC<NavbarProps> = ({
   cartCount,
   wishlistCount,
   onOpenCart,
-  showPlaceholdersOnly,
-  onTogglePlaceholders,
   currentPage,
   onNavigate,
   onBookServiceClick,
@@ -84,20 +82,6 @@ export const Navbar: React.FC<NavbarProps> = ({
 
         {/* Header Right Actions */}
         <div className="flex items-center gap-3">
-          {/* Toggle Placeholder View Mode */}
-          <button
-            type="button"
-            onClick={onTogglePlaceholders}
-            title={showPlaceholdersOnly ? 'Switch to Bike Images' : 'Switch to Bike Placeholders'}
-            className={`hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-mono transition-all border ${showPlaceholdersOnly
-                ? 'bg-[#ff6900]/20 border-[#ff6900] text-orange-300'
-                : 'bg-neutral-900 border-white/10 text-neutral-400 hover:text-white hover:border-white/20'
-              }`}
-          >
-            <SlidersHorizontal className="w-3.5 h-3.5 text-[#ff6900]" />
-            <span className="text-[11px]">{showPlaceholdersOnly ? 'Mode: Slots' : 'Mode: Preview'}</span>
-          </button>
-
           {/* Book Service Button matching mockup */}
           <button
             type="button"

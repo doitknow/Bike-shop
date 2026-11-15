@@ -119,8 +119,6 @@ function App() {
         cartCount={cart.reduce((sum, item) => sum + item.quantity, 0)}
         wishlistCount={wishlist.length}
         onOpenCart={() => setIsCartOpen(true)}
-        showPlaceholdersOnly={showPlaceholdersOnly}
-        onTogglePlaceholders={() => setShowPlaceholdersOnly(!showPlaceholdersOnly)}
         onBookServiceClick={() => {
           setBookingPreselectedService(null);
           setIsGlobalBookingOpen(true);

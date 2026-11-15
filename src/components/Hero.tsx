@@ -160,7 +160,7 @@ export const Hero: React.FC<HeroProps> = ({ onAddToCart, onQuickView, showPlaceh
             <div className="relative w-full max-w-2xl py-4 sm:py-6 overflow-visible flex items-center justify-center">
               {/* Smooth Asphalt Road Surface directly using Road.png with Left and Right Fade */}
               <div
-                className="w-[115%] max-w-3xl h-[65%] absolute bottom-[-4%] left-1/2 -translate-x-1/2 pointer-events-none"
+                className="w-[115%] max-w-3xl h-[65%] absolute bottom-[-4%] left-1/2 -translate-x-1/2 pointer-events-none overflow-hidden"
                 style={{
                   maskImage:
                     'linear-gradient(to right, transparent 0%, black 18%, black 82%, transparent 100%), radial-gradient(ellipse 70% 60% at 50% 60%, black 40%, transparent 95%)',
@@ -168,53 +168,119 @@ export const Hero: React.FC<HeroProps> = ({ onAddToCart, onQuickView, showPlaceh
                     'linear-gradient(to right, transparent 0%, black 18%, black 82%, transparent 100%), radial-gradient(ellipse 70% 60% at 50% 60%, black 40%, transparent 95%)',
                 }}
               >
+                {/* Base Road PNG */}
                 <img
                   src={roadImage}
                   alt="Asphalt Road"
                   className="w-full h-full object-contain filter contrast-[1.08] brightness-[0.98]"
                 />
+
+                {/* Animated Asphalt Velocity Streaks: streaming backwards beneath the wheels */}
+                <div
+                  aria-hidden="true"
+                  className="animate-road-velocity absolute inset-0 w-[200%] h-full flex pointer-events-none opacity-40 mix-blend-screen"
+                >
+                  <div className="w-1/2 h-full relative">
+                    <span className="absolute bottom-[22%] left-[10%] w-24 h-[1.5px] bg-white/40 blur-[0.5px] rounded-full" />
+                    <span className="absolute bottom-[18%] left-[28%] w-32 h-[2px] bg-orange-400/50 blur-[0.5px] rounded-full" />
+                    <span className="absolute bottom-[24%] left-[52%] w-20 h-[1.5px] bg-white/30 blur-[0.5px] rounded-full" />
+                    <span className="absolute bottom-[20%] left-[72%] w-36 h-[2px] bg-white/45 blur-[0.5px] rounded-full" />
+                    <span className="absolute bottom-[16%] left-[88%] w-16 h-[1.5px] bg-orange-400/40 blur-[0.5px] rounded-full" />
+                  </div>
+                  <div className="w-1/2 h-full relative">
+                    <span className="absolute bottom-[22%] left-[10%] w-24 h-[1.5px] bg-white/40 blur-[0.5px] rounded-full" />
+                    <span className="absolute bottom-[18%] left-[28%] w-32 h-[2px] bg-orange-400/50 blur-[0.5px] rounded-full" />
+                    <span className="absolute bottom-[24%] left-[52%] w-20 h-[1.5px] bg-white/30 blur-[0.5px] rounded-full" />
+                    <span className="absolute bottom-[20%] left-[72%] w-36 h-[2px] bg-white/45 blur-[0.5px] rounded-full" />
+                    <span className="absolute bottom-[16%] left-[88%] w-16 h-[1.5px] bg-orange-400/40 blur-[0.5px] rounded-full" />
+                  </div>
+                </div>
+
+                {/* Road surface ambient light sweep */}
+                <div
+                  aria-hidden="true"
+                  className="animate-road-light-glide absolute inset-0 w-full h-full pointer-events-none bg-gradient-to-r from-transparent via-[#ff6900]/15 to-transparent blur-md"
+                />
               </div>
 
               {/* Bike Container Placed Directly on the Road */}
               <div key={currentVariant.hex} className="relative z-10 w-full max-w-[660px] overflow-visible">
-                {/* Wind / speed streaks trailing the bike upon riding in */}
-                <div
-                  aria-hidden="true"
-                  className="animate-wind-streaks pointer-events-none absolute -left-6 top-1/2 -translate-y-1/2 w-48 h-28 flex flex-col justify-around z-0"
-                >
-                  <span className="h-[2px] w-36 rounded-full bg-gradient-to-r from-transparent via-white/50 to-transparent blur-[0.5px] -translate-x-6" />
-                  <span className="h-[2px] w-48 rounded-full bg-gradient-to-r from-transparent via-[#ff6900]/70 to-transparent blur-[0.5px] translate-x-2" />
-                  <span className="h-[1.5px] w-28 rounded-full bg-gradient-to-r from-transparent via-white/40 to-transparent blur-[0.5px] -translate-x-3" />
+                {/* Continuous Aerodynamic Wind Streaks (Forward Speed Vibe) */}
+                <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-20 overflow-visible">
+                  {/* Aero streak 1: off handlebars */}
+                  <span className="animate-aero-stream-1 absolute top-[28%] right-[18%] h-[1.5px] w-36 rounded-full bg-gradient-to-r from-transparent via-[#ff6900]/80 to-transparent blur-[0.5px]" />
+                  {/* Aero streak 2: across top tube */}
+                  <span className="animate-aero-stream-2 absolute top-[44%] right-[32%] h-[2px] w-48 rounded-full bg-gradient-to-r from-transparent via-white/60 to-transparent blur-[0.5px]" />
+                  {/* Aero streak 3: trailing rear wheel */}
+                  <span className="animate-aero-stream-3 absolute bottom-[18%] left-[8%] h-[1.5px] w-40 rounded-full bg-gradient-to-r from-transparent via-[#ff6900]/70 to-transparent blur-[0.5px]" />
+                  {/* Subtle speed micro-particles */}
+                  <span className="animate-aero-stream-2 absolute bottom-[28%] left-[22%] h-[1px] w-20 rounded-full bg-gradient-to-r from-transparent via-white/40 to-transparent blur-[0.5px]" />
                 </div>
 
-                {/* Bike Image with riding transition */}
-                <div className="animate-bike-ride-in relative">
-                  <BikeImageSlot
-                    placeName={`${HERO_BIKE.placeName} (${currentVariant.name})`}
-                    bikeName={`${HERO_BIKE.name} - ${currentVariant.name}`}
-                    imageSrc={currentVariant.image}
-                    altText={`BMAX Ghost Mountain Pro in ${currentVariant.name}`}
-                    aspectRatio="aspect-[16/10]"
-                    badge={currentVariant.name}
-                    forcePlaceholder={showPlaceholdersOnly}
-                    overflowHidden={false}
-                    className="w-full"
-                    imgClassName="object-contain object-bottom drop-shadow-[0_22px_38px_rgba(0,0,0,0.92)] filter contrast-[1.03]"
-                  />
+                {/* Outer container: Continuous Smooth Cruising Suspension & Forward Surge */}
+                <div className="animate-bike-cruise relative">
+                  {/* Inner element: Swift ride-in deceleration entrance on mount/color change */}
+                  <div className="animate-bike-ride-in relative">
+                    <BikeImageSlot
+                      placeName={`${HERO_BIKE.placeName} (${currentVariant.name})`}
+                      bikeName={`${HERO_BIKE.name} - ${currentVariant.name}`}
+                      imageSrc={currentVariant.image}
+                      altText={`BMAX Ghost Mountain Pro in ${currentVariant.name}`}
+                      aspectRatio="aspect-[16/10]"
+                      badge={currentVariant.name}
+                      forcePlaceholder={showPlaceholdersOnly}
+                      overflowHidden={false}
+                      className="w-full"
+                      imgClassName="object-contain object-bottom drop-shadow-[0_22px_38px_rgba(0,0,0,0.92)] filter contrast-[1.03]"
+                    />
 
-                  {/* Realistic Tire Contact Shadows Grounding Wheels Firmly on the Asphalt */}
-                  <div
-                    aria-hidden="true"
-                    className="pointer-events-none absolute bottom-[2.5%] left-[15%] w-24 sm:w-34 h-3.5 sm:h-4 rounded-[100%] bg-black/95 blur-[3px]"
-                  />
-                  <div
-                    aria-hidden="true"
-                    className="pointer-events-none absolute bottom-[2.5%] right-[15%] w-24 sm:w-34 h-3.5 sm:h-4 rounded-[100%] bg-black/95 blur-[3px]"
-                  />
-                  <div
-                    aria-hidden="true"
-                    className="pointer-events-none absolute bottom-[3%] left-[24%] right-[24%] h-3.5 rounded-[100%] bg-black/75 blur-[5px]"
-                  />
+                    {/* High-speed Wheel Spin Shimmer over rear and front wheels */}
+                    {/* Rear wheel spoke spin: center at 20.6%, bottom ~39% from bottom of container (radius ~15.5%) */}
+                    <div
+                      aria-hidden="true"
+                      className="pointer-events-none absolute left-[20.6%] bottom-[39%] -translate-x-1/2 translate-y-1/2 w-[31%] aspect-square rounded-full overflow-hidden opacity-35"
+                    >
+                      <div
+                        className="animate-wheel-spin w-full h-full rounded-full"
+                        style={{
+                          background:
+                            'conic-gradient(from 0deg, transparent 0deg, rgba(255,255,255,0.2) 20deg, transparent 40deg, transparent 90deg, rgba(255,255,255,0.15) 110deg, transparent 130deg, transparent 180deg, rgba(255,255,255,0.2) 200deg, transparent 220deg, transparent 270deg, rgba(255,255,255,0.15) 290deg, transparent 310deg, transparent 360deg)',
+                          maskImage: 'radial-gradient(circle at center, transparent 35%, black 42%, black 92%, transparent 98%)',
+                          WebkitMaskImage: 'radial-gradient(circle at center, transparent 35%, black 42%, black 92%, transparent 98%)',
+                        }}
+                      />
+                    </div>
+
+                    {/* Front wheel spoke spin: center at 77.8%, bottom ~38% */}
+                    <div
+                      aria-hidden="true"
+                      className="pointer-events-none absolute left-[77.8%] bottom-[38%] -translate-x-1/2 translate-y-1/2 w-[31%] aspect-square rounded-full overflow-hidden opacity-35"
+                    >
+                      <div
+                        className="animate-wheel-spin w-full h-full rounded-full"
+                        style={{
+                          background:
+                            'conic-gradient(from 0deg, transparent 0deg, rgba(255,255,255,0.2) 20deg, transparent 40deg, transparent 90deg, rgba(255,255,255,0.15) 110deg, transparent 130deg, transparent 180deg, rgba(255,255,255,0.2) 200deg, transparent 220deg, transparent 270deg, rgba(255,255,255,0.15) 290deg, transparent 310deg, transparent 360deg)',
+                          maskImage: 'radial-gradient(circle at center, transparent 35%, black 42%, black 92%, transparent 98%)',
+                          WebkitMaskImage: 'radial-gradient(circle at center, transparent 35%, black 42%, black 92%, transparent 98%)',
+                        }}
+                      />
+                    </div>
+
+                    {/* Realistic Tire Contact Shadows Grounding Wheels Firmly on the Asphalt with Synchronized Breathing */}
+                    <div
+                      aria-hidden="true"
+                      className="animate-tire-shadow-cruise pointer-events-none absolute bottom-[2.5%] left-[20.6%] -translate-x-1/2 w-28 sm:w-36 h-3.5 sm:h-4 rounded-[100%] bg-black/95 blur-[3px]"
+                    />
+                    <div
+                      aria-hidden="true"
+                      className="animate-tire-shadow-cruise pointer-events-none absolute bottom-[2.5%] left-[77.8%] -translate-x-1/2 w-28 sm:w-36 h-3.5 sm:h-4 rounded-[100%] bg-black/95 blur-[3px]"
+                    />
+                    <div
+                      aria-hidden="true"
+                      className="animate-tire-shadow-cruise pointer-events-none absolute bottom-[3%] left-[24%] right-[24%] h-3.5 rounded-[100%] bg-black/75 blur-[5px]"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
