@@ -1,7 +1,5 @@
 import { useState } from 'react';
-import { Navbar } from './components/Navbar';
-import { BlogPage } from './components/BlogPage';
-import { ServicesPage } from './components/ServicesPage';
+import { Navbar, NavigationPage } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { Revolution } from './components/Revolution';
 import { PromoBanner } from './components/PromoBanner';
@@ -10,15 +8,21 @@ import { CategoryShowcase } from './components/CategoryShowcase';
 import { Newsletter } from './components/Newsletter';
 import { QuickContact } from './components/QuickContact';
 import { Footer } from './components/Footer';
+import { ServicesPage } from './components/ServicesPage';
+import { BlogPage } from './components/BlogPage';
+import { AboutPage } from './components/AboutPage';
+import { ShopPage } from './components/ShopPage';
+import { FAQPage } from './components/FAQPage';
+import { ContactPage } from './components/ContactPage';
 import { CartDrawer } from './components/CartDrawer';
 import { QuickViewModal } from './components/QuickViewModal';
 import { ServiceBookingModal } from './components/ServiceBookingModal';
 import { CartItem, BikeProduct, BookingRequest, ServicePackage } from './types';
 import { BESTSELLER_BIKES } from './data/bikes';
-import { CheckCircle2, Wrench, Bike, SlidersHorizontal, BookOpen } from 'lucide-react';
+import { CheckCircle2, SlidersHorizontal, Layers } from 'lucide-react';
 
 function App() {
-  const [currentPage, setCurrentPage] = useState<'blog' | 'services' | 'home'>('blog');
+  const [currentPage, setCurrentPage] = useState<NavigationPage>('home');
   const [cart, setCart] = useState<CartItem[]>([
     { product: BESTSELLER_BIKES[0], quantity: 1, selectedColor: '#3b4e39' },
   ]);
@@ -84,7 +88,7 @@ function App() {
     setIsCartOpen(false);
   };
 
-  const handleNavigate = (page: 'home' | 'services' | 'blog', hash?: string) => {
+  const handleNavigate = (page: NavigationPage, hash?: string) => {
     setCurrentPage(page);
     if (hash) {
       setTimeout(() => {
@@ -94,7 +98,7 @@ function App() {
         } else {
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }
-      }, 50);
+      }, 60);
     } else {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
@@ -108,63 +112,44 @@ function App() {
 
   return (
     <div className="min-h-screen bg-[#060607] text-[#f5f5f7] flex flex-col font-['DM_Sans'] antialiased selection:bg-[#ff6900] selection:text-white">
-      {/* Top Bar Switcher: Easily navigate across the 3 views */}
+      {/* Top Banner Navigation Pill: Instant one-click jumping across all 7 pages */}
       <aside
         className="w-full bg-gradient-to-r from-[#111114] via-[#1a1410] to-[#111114] border-b border-orange-500/20 py-2 px-4 text-center text-xs text-neutral-300 flex items-center justify-between gap-3 flex-wrap"
         aria-label="Page navigation bar"
       >
-        <div className="flex items-center gap-2">
-          <span className="text-[11px] font-semibold text-neutral-400 hidden sm:inline">
-            Active Page:
+        <div className="flex items-center gap-2 overflow-x-auto max-w-full py-0.5">
+          <span className="text-[11px] font-semibold text-neutral-400 hidden lg:inline flex items-center gap-1">
+            <Layers className="w-3 h-3 text-[#ff6900]" />
+            <span>Pages:</span>
           </span>
-          <div className="inline-flex p-0.5 rounded-full bg-neutral-900 border border-white/10 text-xs">
-            <button
-              type="button"
-              onClick={() => handleNavigate('blog')}
-              className={`px-3 py-1 rounded-full font-semibold transition-all flex items-center gap-1.5 ${
-                currentPage === 'blog'
-                  ? 'bg-[#ff6900] text-white shadow-md'
-                  : 'text-neutral-400 hover:text-white'
-              }`}
-            >
-              <BookOpen className="w-3.5 h-3.5" />
-              <span>Blog Page (New)</span>
-            </button>
-            <button
-              type="button"
-              onClick={() => handleNavigate('services')}
-              className={`px-3 py-1 rounded-full font-semibold transition-all flex items-center gap-1.5 ${
-                currentPage === 'services'
-                  ? 'bg-[#ff6900] text-white shadow-md'
-                  : 'text-neutral-400 hover:text-white'
-              }`}
-            >
-              <Wrench className="w-3.5 h-3.5" />
-              <span>Services Page</span>
-            </button>
-            <button
-              type="button"
-              onClick={() => handleNavigate('home')}
-              className={`px-3 py-1 rounded-full font-semibold transition-all flex items-center gap-1.5 ${
-                currentPage === 'home'
-                  ? 'bg-[#ff6900] text-white shadow-md'
-                  : 'text-neutral-400 hover:text-white'
-              }`}
-            >
-              <Bike className="w-3.5 h-3.5" />
-              <span>Bike Catalog</span>
-            </button>
+          <div className="inline-flex p-0.5 rounded-full bg-neutral-900 border border-white/10 text-xs shrink-0">
+            {(['home', 'about', 'services', 'blog', 'shop', 'faq', 'contact'] as NavigationPage[]).map(
+              (page) => (
+                <button
+                  key={page}
+                  type="button"
+                  onClick={() => handleNavigate(page)}
+                  className={`px-3 py-1 rounded-full font-semibold transition-all capitalize ${
+                    currentPage === page
+                      ? 'bg-[#ff6900] text-white shadow-md'
+                      : 'text-neutral-400 hover:text-white'
+                  }`}
+                >
+                  {page}
+                </button>
+              )
+            )}
           </div>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 shrink-0">
           <button
             type="button"
             onClick={() => setShowPlaceholdersOnly(!showPlaceholdersOnly)}
             className="px-2.5 py-1 rounded-full bg-orange-500/15 hover:bg-orange-500/25 text-orange-300 border border-orange-500/30 font-mono text-[11px] font-bold transition-all flex items-center gap-1.5"
           >
             <SlidersHorizontal className="w-3 h-3 text-[#ff6900]" />
-            <span>{showPlaceholdersOnly ? 'Mode: Wireframe Slots' : 'Mode: Live Previews'}</span>
+            <span>{showPlaceholdersOnly ? 'Mode: Slots' : 'Mode: Preview'}</span>
           </button>
         </div>
       </aside>
@@ -184,30 +169,9 @@ function App() {
         }}
       />
 
-      {/* Main Page Content */}
+      {/* Main Page Content Router */}
       <main className="flex-1 flex flex-col">
-        {currentPage === 'blog' ? (
-          /* ======================================================== */
-          /* 1. THE EXACT BLOG PAGE FROM THE USER'S MOCKUP IMAGE      */
-          /* ======================================================== */
-          <BlogPage
-            onNavigateHome={() => handleNavigate('home')}
-            onExploreProducts={() => handleNavigate('home', '#bestsellers')}
-            showPlaceholdersOnly={showPlaceholdersOnly}
-          />
-        ) : currentPage === 'services' ? (
-          /* ======================================================== */
-          /* 2. THE SERVICES PAGE FROM THE PREVIOUS MOCKUP            */
-          /* ======================================================== */
-          <ServicesPage
-            onNavigateToCatalog={() => handleNavigate('home', '#bestsellers')}
-            showPlaceholdersOnly={showPlaceholdersOnly}
-            onBookingSuccess={handleBookingSuccess}
-          />
-        ) : (
-          /* ======================================================== */
-          /* 3. BIKE CATALOG SHOWROOM HOME PAGE                       */
-          /* ======================================================== */
+        {currentPage === 'home' && (
           <>
             <Hero
               onAddToCart={handleAddToCart}
@@ -220,7 +184,7 @@ function App() {
               showPlaceholdersOnly={showPlaceholdersOnly}
             />
 
-            <PromoBanner onExploreClick={() => handleNavigate('home', '#bestsellers')} />
+            <PromoBanner onExploreClick={() => handleNavigate('shop')} />
 
             <Bestsellers
               onAddToCart={handleAddToCart}
@@ -231,16 +195,63 @@ function App() {
             />
 
             <CategoryShowcase
-              onSelectCategory={() => handleNavigate('home', '#bestsellers')}
+              onSelectCategory={() => handleNavigate('shop')}
               showPlaceholdersOnly={showPlaceholdersOnly}
             />
 
             <Newsletter />
-
             <QuickContact />
-
             <Footer />
           </>
+        )}
+
+        {currentPage === 'about' && (
+          <AboutPage
+            onNavigateHome={() => handleNavigate('home')}
+            onExploreShop={() => handleNavigate('shop')}
+            onBookService={() => setIsGlobalBookingOpen(true)}
+          />
+        )}
+
+        {currentPage === 'services' && (
+          <ServicesPage
+            onNavigateToCatalog={() => handleNavigate('shop')}
+            showPlaceholdersOnly={showPlaceholdersOnly}
+            onBookingSuccess={handleBookingSuccess}
+          />
+        )}
+
+        {currentPage === 'blog' && (
+          <BlogPage
+            onNavigateHome={() => handleNavigate('home')}
+            onExploreProducts={() => handleNavigate('shop')}
+            showPlaceholdersOnly={showPlaceholdersOnly}
+          />
+        )}
+
+        {currentPage === 'shop' && (
+          <ShopPage
+            onAddToCart={handleAddToCart}
+            onQuickView={setQuickViewProduct}
+            onToggleWishlist={handleToggleWishlist}
+            wishlistIds={wishlist}
+            showPlaceholdersOnly={showPlaceholdersOnly}
+            onNavigateHome={() => handleNavigate('home')}
+          />
+        )}
+
+        {currentPage === 'faq' && (
+          <FAQPage
+            onNavigateHome={() => handleNavigate('home')}
+            onBookService={() => setIsGlobalBookingOpen(true)}
+          />
+        )}
+
+        {currentPage === 'contact' && (
+          <ContactPage
+            onNavigateHome={() => handleNavigate('home')}
+            onSubmitSuccess={(msg) => showToast(msg)}
+          />
         )}
       </main>
 

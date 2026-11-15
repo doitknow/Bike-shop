@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import { Bike, Heart, ShoppingBag, Menu, X, SlidersHorizontal, Wrench, ArrowUpRight } from 'lucide-react';
 
+export type NavigationPage = 'home' | 'about' | 'services' | 'blog' | 'shop' | 'faq' | 'contact';
+
 interface NavbarProps {
   cartCount: number;
   wishlistCount: number;
   onOpenCart: () => void;
   showPlaceholdersOnly: boolean;
   onTogglePlaceholders: () => void;
-  currentPage: 'home' | 'services' | 'blog';
-  onNavigate: (page: 'home' | 'services' | 'blog', hash?: string) => void;
+  currentPage: NavigationPage;
+  onNavigate: (page: NavigationPage, hash?: string) => void;
   onBookServiceClick: () => void;
 }
 
@@ -24,17 +26,17 @@ export const Navbar: React.FC<NavbarProps> = ({
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const navLinks = [
-    { name: 'Home', page: 'home' as const, href: '#top' },
-    { name: 'About', page: 'home' as const, href: '#revolution' },
-    { name: 'Services', page: 'services' as const, href: '#services' },
-    { name: 'Blog', page: 'blog' as const, href: '#top' },
-    { name: 'Shop', page: 'home' as const, href: '#bestsellers' },
-    { name: 'FAQ', page: 'services' as const, href: '#faq' },
-    { name: 'Contact', page: 'services' as const, href: '#contact-info' },
+  const navLinks: { name: string; page: NavigationPage; href: string }[] = [
+    { name: 'Home', page: 'home', href: '#top' },
+    { name: 'About', page: 'about', href: '#top' },
+    { name: 'Services', page: 'services', href: '#services' },
+    { name: 'Blog', page: 'blog', href: '#top' },
+    { name: 'Shop', page: 'shop', href: '#top' },
+    { name: 'FAQ', page: 'faq', href: '#top' },
+    { name: 'Contact', page: 'contact', href: '#top' },
   ];
 
-  const handleLinkClick = (page: 'home' | 'services' | 'blog', href?: string) => {
+  const handleLinkClick = (page: NavigationPage, href?: string) => {
     onNavigate(page, href);
     setMobileMenuOpen(false);
   };
@@ -63,12 +65,9 @@ export const Navbar: React.FC<NavbarProps> = ({
         </button>
 
         {/* Desktop Navigation Links */}
-        <nav className="hidden lg:flex items-center gap-8" aria-label="Main Navigation">
+        <nav className="hidden lg:flex items-center gap-7 xl:gap-8" aria-label="Main Navigation">
           {navLinks.map((link) => {
-            const isCurrent =
-              (link.name === 'Services' && currentPage === 'services') ||
-              (link.name === 'Home' && currentPage === 'home') ||
-              (link.name === 'Blog' && currentPage === 'blog');
+            const isCurrent = currentPage === link.page;
 
             return (
               <button
@@ -161,16 +160,20 @@ export const Navbar: React.FC<NavbarProps> = ({
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
         <div className="lg:hidden border-t border-white/10 bg-[#0c0c0e]/95 backdrop-blur-2xl px-6 py-6 space-y-4 animate-in slide-in-from-top-4 duration-200">
-          <nav className="flex flex-col space-y-3" aria-label="Mobile Navigation">
+          <nav className="flex flex-col space-y-2" aria-label="Mobile Navigation">
             {navLinks.map((link) => (
               <button
                 key={link.name}
                 type="button"
                 onClick={() => handleLinkClick(link.page, link.href)}
-                className="text-left text-sm font-semibold text-neutral-300 hover:text-white py-2 border-b border-white/[0.04] flex items-center justify-between"
+                className="text-left text-sm font-semibold text-neutral-300 hover:text-white py-2.5 border-b border-white/[0.04] flex items-center justify-between"
               >
                 <span>{link.name}</span>
-                <ArrowUpRight className="w-4 h-4 opacity-50" />
+                {currentPage === link.page && (
+                  <span className="text-[10px] text-[#ff6900] font-mono font-bold uppercase">
+                    Active
+                  </span>
+                )}
               </button>
             ))}
           </nav>
