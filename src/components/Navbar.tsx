@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Bike, Heart, ShoppingBag, Menu, X, SlidersHorizontal, Wrench, ArrowUpRight } from 'lucide-react';
+import speedLogo from '../Logo/BMAX BIKE Speed Logo.png';
 
 export type NavigationPage = 'home' | 'about' | 'services' | 'blog' | 'shop' | 'faq' | 'contact';
 
@@ -48,13 +49,13 @@ export const Navbar: React.FC<NavbarProps> = ({
         <button
           type="button"
           onClick={() => handleLinkClick('home')}
-          className="flex items-center gap-2.5 text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-[#ff6900] rounded-lg group text-left"
+          className="flex items-center gap-2 text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-[#ff6900] rounded-lg group text-left py-1"
           aria-label="BMAX Bicycle Home"
         >
           <img
-            src="/images/logo.png"
+            src={speedLogo}
             alt="BMAX BIKE"
-            className="h-10 sm:h-11 w-auto object-contain group-hover:scale-105 transition-transform drop-shadow-[0_2px_10px_rgba(255,105,0,0.25)]"
+            className="h-12 sm:h-14 md:h-16 w-auto object-contain group-hover:scale-105 transition-transform drop-shadow-[0_4px_16px_rgba(255,105,0,0.35)]"
           />
         </button>
 
@@ -154,6 +155,10 @@ export const Navbar: React.FC<NavbarProps> = ({
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
         <div className="lg:hidden border-t border-white/10 bg-[#0c0c0e]/95 backdrop-blur-2xl px-6 py-6 space-y-4 animate-in slide-in-from-top-4 duration-200">
+          <div className="flex items-center justify-between pb-3 border-b border-white/[0.08]">
+            <img src={speedLogo} alt="BMAX BIKE" className="h-10 w-auto object-contain" />
+            <span className="text-[10px] font-mono font-semibold text-neutral-400">Navigation</span>
+          </div>
           <nav className="flex flex-col space-y-2" aria-label="Mobile Navigation">
             {navLinks.map((link) => (
               <button

@@ -1,5 +1,6 @@
 import React from 'react';
 import { NEWS_ARTICLES } from '../data/bikes';
+import speedLogo from '../Logo/BMAX BIKE Speed Logo.png';
 import {
   MapPin,
   Phone,
@@ -173,8 +174,8 @@ export const Footer: React.FC = () => {
 
         {/* Bottom copyright line */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-neutral-500 text-[11px]">
-          <div className="flex items-center gap-2">
-            <Bike className="w-4 h-4 text-[#ff6900]" />
+          <div className="flex items-center gap-3">
+            <img src={speedLogo} alt="BMAX BIKE" className="h-8 w-auto object-contain" />
             <p>© 2026 BMAX Bicycle Inc. All rights reserved. Ride Further, Ride Better.</p>
           </div>
           <div className="flex items-center gap-6">

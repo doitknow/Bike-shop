@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { HERO_BIKE } from '../data/bikes';
 import { BikeImageSlot } from './BikeImageSlot';
-import { ArrowRight, ShoppingBag, Check, ShieldCheck, Zap, Compass } from 'lucide-react';
+import { ArrowRight, ShoppingBag, Check, ShieldCheck, Zap } from 'lucide-react';
 import { BikeProduct } from '../types';
 
 interface HeroProps {
@@ -153,35 +153,33 @@ export const Hero: React.FC<HeroProps> = ({ onAddToCart, onQuickView, showPlaceh
             </div>
           </div>
 
-          {/* Right Column - Realistic Road Showcase with Bike Placed On The Road */}
-          <div className="lg:col-span-7 relative flex items-center justify-center overflow-visible">
-            {/* Soft ambient backlight reactive to the selected color */}
+          {/* Right Column - Bike Placed on the Road with Seamless Smooth Background Transition */}
+          <div className="lg:col-span-7 relative flex flex-col items-center justify-center overflow-visible">
+            {/* Soft ambient reactive backlight that smoothly breathes into #060607 */}
             <div
-              className="absolute w-[85%] h-[85%] rounded-full blur-[110px] pointer-events-none transition-colors duration-700 opacity-25"
+              className="absolute w-[110%] h-[110%] -top-10 left-1/2 -translate-x-1/2 rounded-[100%] blur-[130px] pointer-events-none transition-colors duration-700 opacity-20"
               style={{ backgroundColor: selectedColor }}
             />
 
-            {/* Showcase Stage Card */}
-            <div className="relative w-full max-w-2xl rounded-3xl overflow-hidden border border-white/10 bg-[#09090c] shadow-[0_30px_70px_rgba(0,0,0,0.85)] group">
-              {/* Top Information Badge */}
-              <div className="absolute top-3 sm:top-3.5 left-3 sm:left-4 z-20 flex items-center gap-2 px-3 py-1 rounded-full bg-black/80 backdrop-blur-md border border-white/10 text-[11px] font-mono text-neutral-300 shadow-lg pointer-events-none">
+            {/* Road Mode Controls & Indicator */}
+            <div className="relative z-20 flex items-center justify-between w-full max-w-2xl px-2 sm:px-4 mb-2">
+              <div className="flex items-center gap-2 text-[11px] font-mono text-neutral-400">
                 <span className="w-2 h-2 rounded-full bg-[#ff6900] animate-pulse" />
-                <span className="font-semibold text-white/90">
-                  {roadStyle === 'asphalt' && 'Bike-Roads / Road 1 (Track)'}
-                  {roadStyle === 'scenic' && 'Bike-Roads / Road 1 (Scenic Highway)'}
+                <span className="text-white/80 font-medium">
+                  {roadStyle === 'asphalt' && 'Bike-Roads / Highway Route 01 (Track)'}
+                  {roadStyle === 'scenic' && 'Bike-Roads / Road 1 (Scenic Sky)'}
                   {roadStyle === 'sunset' && 'Bike-Roads / Road 2 (Sunset)'}
                 </span>
               </div>
 
-              {/* Road Mode Switcher */}
-              <div className="absolute top-3 sm:top-3.5 right-3 sm:right-4 z-20 flex items-center gap-1 p-1 rounded-full bg-black/80 backdrop-blur-md border border-white/10 text-[11px] shadow-lg">
+              {/* Minimal floating switcher */}
+              <div className="flex items-center gap-1 p-1 rounded-full bg-neutral-900/60 backdrop-blur-md border border-white/10 text-xs">
                 <button
                   type="button"
                   onClick={() => setRoadStyle('asphalt')}
-                  title="Road 1 Asphalt Track"
-                  className={`px-2.5 sm:px-3 py-1 rounded-full font-medium transition-all ${
+                  className={`px-3 py-1 rounded-full text-xs font-semibold transition-all ${
                     roadStyle === 'asphalt'
-                      ? 'bg-[#ff6900] text-white shadow-sm font-semibold'
+                      ? 'bg-[#ff6900] text-white shadow-md'
                       : 'text-neutral-400 hover:text-white'
                   }`}
                 >
@@ -190,10 +188,9 @@ export const Hero: React.FC<HeroProps> = ({ onAddToCart, onQuickView, showPlaceh
                 <button
                   type="button"
                   onClick={() => setRoadStyle('scenic')}
-                  title="Road 1 Scenic Highway"
-                  className={`px-2.5 sm:px-3 py-1 rounded-full font-medium transition-all ${
+                  className={`px-3 py-1 rounded-full text-xs font-semibold transition-all ${
                     roadStyle === 'scenic'
-                      ? 'bg-[#ff6900] text-white shadow-sm font-semibold'
+                      ? 'bg-[#ff6900] text-white shadow-md'
                       : 'text-neutral-400 hover:text-white'
                   }`}
                 >
@@ -202,112 +199,116 @@ export const Hero: React.FC<HeroProps> = ({ onAddToCart, onQuickView, showPlaceh
                 <button
                   type="button"
                   onClick={() => setRoadStyle('sunset')}
-                  title="Road 2 Sunset Vista"
-                  className={`px-2.5 sm:px-3 py-1 rounded-full font-medium transition-all hidden sm:inline-block ${
+                  className={`px-3 py-1 rounded-full text-xs font-semibold transition-all hidden sm:inline-block ${
                     roadStyle === 'sunset'
-                      ? 'bg-[#ff6900] text-white shadow-sm font-semibold'
+                      ? 'bg-[#ff6900] text-white shadow-md'
                       : 'text-neutral-400 hover:text-white'
                   }`}
                 >
                   Road 2 Sunset
                 </button>
               </div>
+            </div>
 
-              {/* Road Background Environment */}
-              <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+            {/* Seamless Stage Area with No Solid Frame */}
+            <div className="relative w-full max-w-2xl py-4 sm:py-6 overflow-visible flex items-center justify-center">
+              {/* Background Environment with Smooth Feathered Radial Transition into #060607 */}
+              <div className="absolute inset-0 z-0 pointer-events-none overflow-visible flex items-end justify-center">
                 {roadStyle === 'asphalt' ? (
-                  /* Seamless Road 1 Asphalt Track with white dividing line */
-                  <div className="w-full h-full relative bg-gradient-to-b from-[#111115] via-[#09090c] to-[#050506]">
-                    {/* Perspective guide & ambient lighting */}
-                    <div className="absolute top-0 inset-x-0 h-40 bg-gradient-to-b from-black/60 to-transparent" />
-                    <div className="absolute bottom-[30%] inset-x-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-                    {/* The asphalt road strip cut directly from Road 1 */}
-                    <div className="absolute bottom-0 inset-x-0 w-full h-[52%] flex items-end">
-                      <img
-                        src="/images/roads/road-strip-hq.png"
-                        alt="Asphalt road from Bike-Roads road 1"
-                        className="w-full h-full object-cover object-top opacity-95 filter contrast-[1.05]"
-                      />
-                    </div>
+                  /* Smooth Asphalt Road Surface fading seamlessly in all directions */
+                  <div
+                    className="w-[115%] max-w-3xl h-[65%] absolute bottom-[-4%] left-1/2 -translate-x-1/2"
+                    style={{
+                      maskImage:
+                        'radial-gradient(ellipse 65% 55% at 50% 60%, black 35%, transparent 95%)',
+                      WebkitMaskImage:
+                        'radial-gradient(ellipse 65% 55% at 50% 60%, black 35%, transparent 95%)',
+                    }}
+                  >
+                    <img
+                      src="/images/roads/road-strip-hq.png"
+                      alt="Asphalt road from Bike-Roads road 1"
+                      className="w-full h-full object-contain filter contrast-[1.08] brightness-[0.98]"
+                    />
                   </div>
                 ) : roadStyle === 'scenic' ? (
-                  /* Full Scenic Road 1 Open Sky Highway */
-                  <div className="w-full h-full relative">
+                  /* Scenic Road 1 with Smooth Feathered Vignette (no solid box) */
+                  <div
+                    className="w-[110%] max-w-2xl h-[95%] absolute inset-0 m-auto"
+                    style={{
+                      maskImage:
+                        'radial-gradient(ellipse 65% 60% at 50% 50%, black 40%, transparent 95%)',
+                      WebkitMaskImage:
+                        'radial-gradient(ellipse 65% 60% at 50% 50%, black 40%, transparent 95%)',
+                    }}
+                  >
                     <img
                       src="/images/roads/road-1-hq.jpg"
                       alt="Scenic Highway Road 1 from Bike-Roads"
-                      className="w-full h-full object-cover object-bottom filter contrast-[1.03]"
+                      className="w-full h-full object-cover object-bottom filter contrast-[1.03] brightness-90"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30" />
-                    <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-transparent to-black/20" />
                   </div>
                 ) : (
-                  /* Sunset Road 2 Mountain Pass */
-                  <div className="w-full h-full relative">
+                  /* Sunset Road 2 with Smooth Feathered Vignette */
+                  <div
+                    className="w-[110%] max-w-2xl h-[95%] absolute inset-0 m-auto"
+                    style={{
+                      maskImage:
+                        'radial-gradient(ellipse 65% 60% at 50% 50%, black 40%, transparent 95%)',
+                      WebkitMaskImage:
+                        'radial-gradient(ellipse 65% 60% at 50% 50%, black 40%, transparent 95%)',
+                    }}
+                  >
                     <img
                       src="/images/roads/road-2-hq.jpg"
                       alt="Sunset Road 2 from Bike-Roads"
-                      className="w-full h-full object-cover object-bottom filter contrast-[1.03]"
+                      className="w-full h-full object-cover object-bottom filter contrast-[1.03] brightness-90"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30" />
                   </div>
                 )}
               </div>
 
               {/* Bike Container Placed Directly on the Road */}
-              <div className="relative z-10 w-full pt-14 pb-4 sm:pb-5 px-3 sm:px-6 flex flex-col items-center justify-end">
-                <div key={currentVariant.hex} className="relative w-full max-w-[660px]">
-                  {/* Wind / speed streaks trailing the bike upon riding in */}
+              <div key={currentVariant.hex} className="relative z-10 w-full max-w-[660px] overflow-visible">
+                {/* Wind / speed streaks trailing the bike upon riding in */}
+                <div
+                  aria-hidden="true"
+                  className="animate-wind-streaks pointer-events-none absolute -left-6 top-1/2 -translate-y-1/2 w-48 h-28 flex flex-col justify-around z-0"
+                >
+                  <span className="h-[2px] w-36 rounded-full bg-gradient-to-r from-transparent via-white/50 to-transparent blur-[0.5px] -translate-x-6" />
+                  <span className="h-[2px] w-48 rounded-full bg-gradient-to-r from-transparent via-[#ff6900]/70 to-transparent blur-[0.5px] translate-x-2" />
+                  <span className="h-[1.5px] w-28 rounded-full bg-gradient-to-r from-transparent via-white/40 to-transparent blur-[0.5px] -translate-x-3" />
+                </div>
+
+                {/* Bike Image with riding transition */}
+                <div className="animate-bike-ride-in relative">
+                  <BikeImageSlot
+                    placeName={`${HERO_BIKE.placeName} (${currentVariant.name})`}
+                    bikeName={`${HERO_BIKE.name} - ${currentVariant.name}`}
+                    imageSrc={currentVariant.image}
+                    altText={`BMAX Ghost Mountain Pro in ${currentVariant.name}`}
+                    aspectRatio="aspect-[16/10]"
+                    badge={currentVariant.name}
+                    forcePlaceholder={showPlaceholdersOnly}
+                    overflowHidden={false}
+                    className="w-full"
+                    imgClassName="object-contain object-bottom drop-shadow-[0_22px_38px_rgba(0,0,0,0.92)] filter contrast-[1.03]"
+                  />
+
+                  {/* Realistic Tire Contact Shadows Grounding Wheels Firmly on the Asphalt */}
                   <div
                     aria-hidden="true"
-                    className="animate-wind-streaks pointer-events-none absolute -left-4 top-1/2 -translate-y-1/2 w-48 h-28 flex flex-col justify-around z-0"
-                  >
-                    <span className="h-[2px] w-36 rounded-full bg-gradient-to-r from-transparent via-white/50 to-transparent blur-[0.5px] -translate-x-6" />
-                    <span className="h-[2px] w-48 rounded-full bg-gradient-to-r from-transparent via-[#ff6900]/70 to-transparent blur-[0.5px] translate-x-2" />
-                    <span className="h-[1.5px] w-28 rounded-full bg-gradient-to-r from-transparent via-white/40 to-transparent blur-[0.5px] -translate-x-3" />
-                  </div>
-
-                  {/* Bike Image with riding transition */}
-                  <div className="animate-bike-ride-in relative">
-                    <BikeImageSlot
-                      placeName={`${HERO_BIKE.placeName} (${currentVariant.name})`}
-                      bikeName={`${HERO_BIKE.name} - ${currentVariant.name}`}
-                      imageSrc={currentVariant.image}
-                      altText={`BMAX Ghost Mountain Pro in ${currentVariant.name}`}
-                      aspectRatio="aspect-[16/10]"
-                      badge={currentVariant.name}
-                      forcePlaceholder={showPlaceholdersOnly}
-                      overflowHidden={false}
-                      className="w-full"
-                      imgClassName="object-contain object-bottom drop-shadow-[0_16px_28px_rgba(0,0,0,0.85)] filter contrast-[1.03]"
-                    />
-
-                    {/* Realistic Tire Contact Shadows Grounding Wheels Firmly on the Asphalt */}
-                    <div
-                      aria-hidden="true"
-                      className="pointer-events-none absolute bottom-[2.5%] left-[15%] w-24 sm:w-32 h-3.5 sm:h-4 rounded-[100%] bg-black/95 blur-[3px]"
-                    />
-                    <div
-                      aria-hidden="true"
-                      className="pointer-events-none absolute bottom-[2.5%] right-[15%] w-24 sm:w-32 h-3.5 sm:h-4 rounded-[100%] bg-black/95 blur-[3px]"
-                    />
-                    <div
-                      aria-hidden="true"
-                      className="pointer-events-none absolute bottom-[3%] left-[24%] right-[24%] h-3.5 rounded-[100%] bg-black/75 blur-[5px]"
-                    />
-                  </div>
+                    className="pointer-events-none absolute bottom-[2.5%] left-[15%] w-24 sm:w-34 h-3.5 sm:h-4 rounded-[100%] bg-black/95 blur-[3px]"
+                  />
+                  <div
+                    aria-hidden="true"
+                    className="pointer-events-none absolute bottom-[2.5%] right-[15%] w-24 sm:w-34 h-3.5 sm:h-4 rounded-[100%] bg-black/95 blur-[3px]"
+                  />
+                  <div
+                    aria-hidden="true"
+                    className="pointer-events-none absolute bottom-[3%] left-[24%] right-[24%] h-3.5 rounded-[100%] bg-black/75 blur-[5px]"
+                  />
                 </div>
-              </div>
-
-              {/* Bottom Road Spec Pills */}
-              <div className="absolute bottom-3 left-4 z-20 hidden md:flex items-center gap-2 text-[10px] font-mono text-neutral-400 pointer-events-none">
-                <span className="px-2 py-0.5 rounded bg-black/70 backdrop-blur-sm border border-white/10 text-neutral-300 flex items-center gap-1">
-                  <Compass className="w-3 h-3 text-[#ff6900]" />
-                  <span>Real Asphalt Contact</span>
-                </span>
-                <span className="px-2 py-0.5 rounded bg-black/70 backdrop-blur-sm border border-white/10 text-orange-400">
-                  Open Road Ready
-                </span>
               </div>
             </div>
           </div>
