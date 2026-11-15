@@ -95,8 +95,8 @@ export const Hero: React.FC<HeroProps> = ({ onAddToCart, onQuickView, showPlaceh
                         title={variant.name}
                         aria-label={`Select color ${variant.name}`}
                         className={`group relative w-7 h-7 rounded-full border-2 transition-all flex items-center justify-center ${selectedColor === variant.hex
-                            ? 'border-white scale-110 shadow-[0_0_12px_rgba(255,255,255,0.6)]'
-                            : 'border-white/20 hover:scale-105 opacity-80 hover:opacity-100 hover:border-white/50'
+                          ? 'border-white scale-110 shadow-[0_0_12px_rgba(255,255,255,0.6)]'
+                          : 'border-white/20 hover:scale-105 opacity-80 hover:opacity-100 hover:border-white/50'
                           }`}
                         style={{ backgroundColor: variant.hex }}
                       >
@@ -116,8 +116,8 @@ export const Hero: React.FC<HeroProps> = ({ onAddToCart, onQuickView, showPlaceh
                         onClick={() => setSelectedColor(color)}
                         aria-label={`Select color ${color}`}
                         className={`w-6 h-6 rounded-full border-2 transition-all flex items-center justify-center ${selectedColor === color
-                            ? 'border-white scale-110 shadow-[0_0_10px_rgba(255,255,255,0.4)]'
-                            : 'border-transparent hover:scale-105 opacity-80 hover:opacity-100'
+                          ? 'border-white scale-110 shadow-[0_0_10px_rgba(255,255,255,0.4)]'
+                          : 'border-transparent hover:scale-105 opacity-80 hover:opacity-100'
                           }`}
                         style={{ backgroundColor: color }}
                       >
@@ -149,24 +149,23 @@ export const Hero: React.FC<HeroProps> = ({ onAddToCart, onQuickView, showPlaceh
             </div>
           </div>
 
-          {/* Right Column - Bike Placed Directly on Road.png with Seamless Background Transition */}
+          {/* Right Column - Bike Placed Directly on Road.png with Seamless Smooth Edge Transitions */}
           <div className="lg:col-span-7 relative flex items-center justify-center overflow-visible">
-            {/* Soft ambient reactive backlight that smoothly breathes into #060607 */}
+            {/* Consistent deep black ambient shadow for all color bikes */}
             <div
-              className="absolute w-[110%] h-[110%] -top-10 left-1/2 -translate-x-1/2 rounded-[100%] blur-[130px] pointer-events-none transition-colors duration-700 opacity-20"
-              style={{ backgroundColor: selectedColor }}
+              className="absolute w-[110%] h-[110%] -top-10 left-1/2 -translate-x-1/2 rounded-[100%] blur-[130px] pointer-events-none bg-black/50"
             />
 
             {/* Seamless Stage Area with No Solid Frame */}
             <div className="relative w-full max-w-2xl py-4 sm:py-6 overflow-visible flex items-center justify-center">
-              {/* Smooth Asphalt Road Surface directly using Road.png fading seamlessly in all directions */}
+              {/* Smooth Asphalt Road Surface directly using Road.png with Left and Right Fade */}
               <div
                 className="w-[115%] max-w-3xl h-[65%] absolute bottom-[-4%] left-1/2 -translate-x-1/2 pointer-events-none"
                 style={{
                   maskImage:
-                    'radial-gradient(ellipse 65% 55% at 50% 60%, black 35%, transparent 95%)',
+                    'linear-gradient(to right, transparent 0%, black 18%, black 82%, transparent 100%), radial-gradient(ellipse 70% 60% at 50% 60%, black 40%, transparent 95%)',
                   WebkitMaskImage:
-                    'radial-gradient(ellipse 65% 55% at 50% 60%, black 35%, transparent 95%)',
+                    'linear-gradient(to right, transparent 0%, black 18%, black 82%, transparent 100%), radial-gradient(ellipse 70% 60% at 50% 60%, black 40%, transparent 95%)',
                 }}
               >
                 <img
