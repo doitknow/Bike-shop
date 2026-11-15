@@ -44,24 +44,18 @@ export const Navbar: React.FC<NavbarProps> = ({
   return (
     <header className="sticky top-0 z-40 w-full border-b border-white/[0.08] bg-[#070708]/90 backdrop-blur-xl">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
-        {/* Brand Logo */}
+        {/* Brand Logo with BMAX BIKE Speed Logo */}
         <button
           type="button"
           onClick={() => handleLinkClick('home')}
-          className="flex items-center gap-3 text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-[#ff6900] rounded-lg group text-left"
+          className="flex items-center gap-2.5 text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-[#ff6900] rounded-lg group text-left"
           aria-label="BMAX Bicycle Home"
         >
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#1a1a1a] to-[#2a2a2a] border border-white/10 flex items-center justify-center text-[#ff6900] group-hover:scale-105 transition-transform shadow-md">
-            <Bike className="w-6 h-6" strokeWidth={2.2} />
-          </div>
-          <div className="flex flex-col leading-none">
-            <span className="font-extrabold tracking-tight text-xl font-['Space_Grotesk'] text-white">
-              BMAX
-            </span>
-            <span className="text-[9px] font-bold tracking-[0.25em] text-[#ff6900] uppercase mt-0.5">
-              Bicycle
-            </span>
-          </div>
+          <img
+            src="/images/logo.png"
+            alt="BMAX BIKE"
+            className="h-10 sm:h-11 w-auto object-contain group-hover:scale-105 transition-transform drop-shadow-[0_2px_10px_rgba(255,105,0,0.25)]"
+          />
         </button>
 
         {/* Desktop Navigation Links */}
