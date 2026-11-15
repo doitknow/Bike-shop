@@ -1,0 +1,194 @@
+import React, { useState } from 'react';
+import { Bike, Heart, ShoppingBag, Menu, X, SlidersHorizontal, Wrench, ArrowUpRight } from 'lucide-react';
+
+interface NavbarProps {
+  cartCount: number;
+  wishlistCount: number;
+  onOpenCart: () => void;
+  showPlaceholdersOnly: boolean;
+  onTogglePlaceholders: () => void;
+  currentPage: 'home' | 'services';
+  onNavigate: (page: 'home' | 'services', hash?: string) => void;
+  onBookServiceClick: () => void;
+}
+
+export const Navbar: React.FC<NavbarProps> = ({
+  cartCount,
+  wishlistCount,
+  onOpenCart,
+  showPlaceholdersOnly,
+  onTogglePlaceholders,
+  currentPage,
+  onNavigate,
+  onBookServiceClick,
+}) => {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const navLinks = [
+    { name: 'Home', page: 'home' as const, href: '#top' },
+    { name: 'About', page: 'home' as const, href: '#revolution' },
+    { name: 'Services', page: 'services' as const, href: '#services' },
+    { name: 'Blog', page: 'home' as const, href: '#news' },
+    { name: 'Shop', page: 'home' as const, href: '#bestsellers' },
+    { name: 'FAQ', page: 'services' as const, href: '#faq' },
+    { name: 'Contact', page: 'services' as const, href: '#contact-info' },
+  ];
+
+  const handleLinkClick = (page: 'home' | 'services', href?: string) => {
+    onNavigate(page, href);
+    setMobileMenuOpen(false);
+  };
+
+  return (
+    <header className="sticky top-0 z-40 w-full border-b border-white/[0.08] bg-[#070708]/90 backdrop-blur-xl">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+        {/* Brand Logo */}
+        <button
+          type="button"
+          onClick={() => handleLinkClick('home')}
+          className="flex items-center gap-3 text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-[#ff6900] rounded-lg group text-left"
+          aria-label="BMAX Bicycle Home"
+        >
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#1a1a1a] to-[#2a2a2a] border border-white/10 flex items-center justify-center text-[#ff6900] group-hover:scale-105 transition-transform shadow-md">
+            <Bike className="w-6 h-6" strokeWidth={2.2} />
+          </div>
+          <div className="flex flex-col leading-none">
+            <span className="font-extrabold tracking-tight text-xl font-['Space_Grotesk'] text-white">
+              BMAX
+            </span>
+            <span className="text-[9px] font-bold tracking-[0.25em] text-[#ff6900] uppercase mt-0.5">
+              Bicycle
+            </span>
+          </div>
+        </button>
+
+        {/* Desktop Navigation Links */}
+        <nav className="hidden lg:flex items-center gap-8" aria-label="Main Navigation">
+          {navLinks.map((link) => {
+            const isCurrent =
+              (link.name === 'Services' && currentPage === 'services') ||
+              (link.name === 'Home' && currentPage === 'home');
+
+            return (
+              <button
+                key={link.name}
+                type="button"
+                onClick={() => handleLinkClick(link.page, link.href)}
+                aria-current={isCurrent ? 'page' : undefined}
+                className={`relative text-xs tracking-wide font-medium transition-colors hover:text-white py-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#ff6900] rounded ${
+                  isCurrent ? 'text-white font-semibold' : 'text-neutral-400'
+                }`}
+              >
+                {link.name}
+                {isCurrent && (
+                  <span className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-[#ff6900] shadow-[0_0_8px_#ff6900]" />
+                )}
+              </button>
+            );
+          })}
+        </nav>
+
+        {/* Header Right Actions */}
+        <div className="flex items-center gap-3">
+          {/* Toggle Placeholder View Mode */}
+          <button
+            type="button"
+            onClick={onTogglePlaceholders}
+            title={showPlaceholdersOnly ? 'Switch to Bike Images' : 'Switch to Bike Placeholders'}
+            className={`hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-mono transition-all border ${
+              showPlaceholdersOnly
+                ? 'bg-[#ff6900]/20 border-[#ff6900] text-orange-300'
+                : 'bg-neutral-900 border-white/10 text-neutral-400 hover:text-white hover:border-white/20'
+            }`}
+          >
+            <SlidersHorizontal className="w-3.5 h-3.5 text-[#ff6900]" />
+            <span className="text-[11px]">{showPlaceholdersOnly ? 'Mode: Slots' : 'Mode: Preview'}</span>
+          </button>
+
+          {/* Book Service Button matching mockup */}
+          <button
+            type="button"
+            onClick={onBookServiceClick}
+            className="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#ff6900] hover:bg-[#ff7a18] text-white text-xs font-bold transition-all shadow-[0_4px_16px_rgba(255,105,0,0.35)] hover:shadow-[0_6px_22px_rgba(255,105,0,0.5)] hover:-translate-y-0.5 active:translate-y-0"
+          >
+            <Wrench className="w-3.5 h-3.5" />
+            <span>Book Service</span>
+          </button>
+
+          {/* Wishlist Button */}
+          <button
+            type="button"
+            aria-label={`Wishlist with ${wishlistCount} items`}
+            className="relative w-10 h-10 rounded-full bg-neutral-900 border border-white/10 hover:border-white/20 text-neutral-300 hover:text-white flex items-center justify-center transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#ff6900]"
+          >
+            <Heart className="w-4 h-4" />
+            {wishlistCount > 0 && (
+              <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-[#ff6900] text-[9px] font-bold text-white flex items-center justify-center">
+                {wishlistCount}
+              </span>
+            )}
+          </button>
+
+          {/* Cart Button */}
+          <button
+            type="button"
+            onClick={onOpenCart}
+            aria-label={`Shopping cart with ${cartCount} items`}
+            className="relative w-10 h-10 rounded-full bg-neutral-900 border border-white/10 hover:border-white/20 text-neutral-300 hover:text-white flex items-center justify-center transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#ff6900]"
+          >
+            <ShoppingBag className="w-4 h-4" />
+            {cartCount > 0 && (
+              <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-[#ff6900] text-[9px] font-bold text-white flex items-center justify-center shadow-[0_0_8px_rgba(255,105,0,0.8)]">
+                {cartCount}
+              </span>
+            )}
+          </button>
+
+          {/* Mobile Menu Toggle */}
+          <button
+            type="button"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-expanded={mobileMenuOpen}
+            aria-label={mobileMenuOpen ? 'Close Navigation Menu' : 'Open Navigation Menu'}
+            className="lg:hidden w-10 h-10 rounded-full bg-neutral-900 border border-white/10 text-neutral-300 hover:text-white flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-[#ff6900]"
+          >
+            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Drawer Menu */}
+      {mobileMenuOpen && (
+        <div className="lg:hidden border-t border-white/10 bg-[#0c0c0e]/95 backdrop-blur-2xl px-6 py-6 space-y-4 animate-in slide-in-from-top-4 duration-200">
+          <nav className="flex flex-col space-y-3" aria-label="Mobile Navigation">
+            {navLinks.map((link) => (
+              <button
+                key={link.name}
+                type="button"
+                onClick={() => handleLinkClick(link.page, link.href)}
+                className="text-left text-sm font-semibold text-neutral-300 hover:text-white py-2 border-b border-white/[0.04] flex items-center justify-between"
+              >
+                <span>{link.name}</span>
+                <ArrowUpRight className="w-4 h-4 opacity-50" />
+              </button>
+            ))}
+          </nav>
+
+          <div className="pt-2 space-y-3">
+            <button
+              type="button"
+              onClick={() => {
+                onBookServiceClick();
+                setMobileMenuOpen(false);
+              }}
+              className="w-full py-3 rounded-full bg-[#ff6900] text-white text-xs font-bold flex items-center justify-center gap-2"
+            >
+              <Wrench className="w-4 h-4" />
+              <span>Book Bike Service</span>
+            </button>
+          </div>
+        </div>
+      )}
+    </header>
+  );
+};
