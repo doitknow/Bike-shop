@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { HERO_BIKE } from '../data/bikes';
 import { BikeImageSlot } from './BikeImageSlot';
-import { ArrowRight, ShoppingBag, Check, ShieldCheck, Zap } from 'lucide-react';
+import { ArrowRight, ShoppingBag, Check, ShieldCheck, Zap, Sparkles } from 'lucide-react';
 import { BikeProduct } from '../types';
 import roadImage from '../Bike-Roads/Road.png';
 
@@ -188,35 +188,55 @@ export const Hero: React.FC<HeroProps> = ({ onAddToCart, onQuickView, showPlaceh
               </div>
 
               {/* Bike Container Placed Directly on the Road */}
-              <div key={currentVariant.hex} className="relative z-10 w-full max-w-[660px] overflow-visible">
-                {/* Continuous Aerodynamic Wind Streaks (Forward Speed Vibe) */}
-                <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-20 overflow-visible">
-                  {/* Aero streak 1: off handlebars */}
-                  <span className="animate-aero-stream-1 absolute top-[28%] right-[18%] h-[1.5px] w-36 rounded-full bg-gradient-to-r from-transparent via-[#ff6900]/80 to-transparent blur-[0.5px]" />
-                  {/* Aero streak 2: across top tube */}
-                  <span className="animate-aero-stream-2 absolute top-[44%] right-[32%] h-[2px] w-48 rounded-full bg-gradient-to-r from-transparent via-white/60 to-transparent blur-[0.5px]" />
-                  {/* Aero streak 3: trailing rear wheel */}
-                  <span className="animate-aero-stream-3 absolute bottom-[18%] left-[8%] h-[1.5px] w-40 rounded-full bg-gradient-to-r from-transparent via-[#ff6900]/70 to-transparent blur-[0.5px]" />
-                  {/* Subtle speed micro-particles */}
-                  <span className="animate-aero-stream-2 absolute bottom-[28%] left-[22%] h-[1px] w-20 rounded-full bg-gradient-to-r from-transparent via-white/40 to-transparent blur-[0.5px]" />
+              <div className="relative z-10 w-full max-w-[660px] overflow-visible">
+                {/* Stationary Header Badges (NOT MOVABLE) - completely fixed in place */}
+                <div className="absolute top-2.5 left-2.5 z-30 pointer-events-none">
+                  <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/80 backdrop-blur-md border border-white/10 text-[10px] font-mono text-neutral-300 shadow-lg">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#ff6900]" />
+                    <span className="font-semibold text-white/90 truncate max-w-[170px] sm:max-w-none">
+                      {HERO_BIKE.placeName} ({currentVariant.name})
+                    </span>
+                  </div>
                 </div>
 
-                {/* Outer container: Continuous Smooth Cruising Suspension & Forward Surge */}
-                <div className="animate-bike-cruise relative">
-                  {/* Inner element: Swift ride-in deceleration entrance on mount/color change */}
-                  <div className="animate-bike-ride-in relative">
-                    <BikeImageSlot
-                      placeName={`${HERO_BIKE.placeName} (${currentVariant.name})`}
-                      bikeName={`${HERO_BIKE.name} - ${currentVariant.name}`}
-                      imageSrc={currentVariant.image}
-                      altText={`BMAX Ghost Mountain Pro in ${currentVariant.name}`}
-                      aspectRatio="aspect-[16/10]"
-                      badge={currentVariant.name}
-                      forcePlaceholder={showPlaceholdersOnly}
-                      overflowHidden={false}
-                      className="w-full"
-                      imgClassName="object-contain object-bottom drop-shadow-[0_22px_38px_rgba(0,0,0,0.92)] filter contrast-[1.03]"
-                    />
+                <div className="absolute top-2.5 right-2.5 z-30 pointer-events-none">
+                  <span className="px-2.5 py-1 rounded-full bg-gradient-to-r from-[#ff6900] to-[#ff8c00] text-white text-[10px] font-bold shadow-[0_2px_10px_rgba(255,105,0,0.4)] flex items-center gap-1">
+                    <Sparkles className="w-3 h-3" />
+                    {currentVariant.name}
+                  </span>
+                </div>
+
+                {/* Dynamic Bike Area (rides in on variant change, then cruises smoothly) */}
+                <div key={currentVariant.hex} className="relative w-full overflow-visible">
+                  {/* Continuous Aerodynamic Wind Streaks (Forward Speed Vibe) */}
+                  <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-20 overflow-visible">
+                    {/* Aero streak 1: off handlebars */}
+                    <span className="animate-aero-stream-1 absolute top-[28%] right-[18%] h-[1.5px] w-36 rounded-full bg-gradient-to-r from-transparent via-[#ff6900]/80 to-transparent blur-[0.5px]" />
+                    {/* Aero streak 2: across top tube */}
+                    <span className="animate-aero-stream-2 absolute top-[44%] right-[32%] h-[2px] w-48 rounded-full bg-gradient-to-r from-transparent via-white/60 to-transparent blur-[0.5px]" />
+                    {/* Aero streak 3: trailing rear wheel */}
+                    <span className="animate-aero-stream-3 absolute bottom-[18%] left-[8%] h-[1.5px] w-40 rounded-full bg-gradient-to-r from-transparent via-[#ff6900]/70 to-transparent blur-[0.5px]" />
+                    {/* Subtle speed micro-particles */}
+                    <span className="animate-aero-stream-2 absolute bottom-[28%] left-[22%] h-[1px] w-20 rounded-full bg-gradient-to-r from-transparent via-white/40 to-transparent blur-[0.5px]" />
+                  </div>
+
+                  {/* Outer container: Continuous Smooth Cruising Suspension & Forward Surge */}
+                  <div className="animate-bike-cruise relative">
+                    {/* Inner element: Swift ride-in deceleration entrance on mount/color change */}
+                    <div className="animate-bike-ride-in relative">
+                      <BikeImageSlot
+                        placeName={`${HERO_BIKE.placeName} (${currentVariant.name})`}
+                        bikeName={`${HERO_BIKE.name} - ${currentVariant.name}`}
+                        imageSrc={currentVariant.image}
+                        altText={`BMAX Ghost Mountain Pro in ${currentVariant.name}`}
+                        aspectRatio="aspect-[16/10]"
+                        badge={currentVariant.name}
+                        showBadges={false}
+                        forcePlaceholder={showPlaceholdersOnly}
+                        overflowHidden={false}
+                        className="w-full"
+                        imgClassName="object-contain object-bottom drop-shadow-[0_22px_38px_rgba(0,0,0,0.92)] filter contrast-[1.03]"
+                      />
 
                     {/* High-speed Wheel Spin Shimmer over rear and front wheels */}
                     {/* Rear wheel spoke spin: center at 20.6%, bottom ~39% from bottom of container (radius ~15.5%) */}

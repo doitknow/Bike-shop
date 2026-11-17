@@ -12,6 +12,7 @@ interface BikeImageSlotProps {
   badge?: string;
   forcePlaceholder?: boolean;
   overflowHidden?: boolean;
+  showBadges?: boolean;
 }
 
 export const BikeImageSlot: React.FC<BikeImageSlotProps> = ({
@@ -25,6 +26,7 @@ export const BikeImageSlot: React.FC<BikeImageSlotProps> = ({
   badge,
   forcePlaceholder = false,
   overflowHidden = true,
+  showBadges = true,
 }) => {
   const [imageError, setImageError] = useState(false);
 
@@ -63,21 +65,25 @@ export const BikeImageSlot: React.FC<BikeImageSlotProps> = ({
         </div>
       )}
 
-      {/* Floating Place Identifier Badge (Always visible or on hover so the user immediately knows the slot) */}
-      <div className="absolute top-2.5 left-2.5 z-10 pointer-events-none">
-        <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/80 backdrop-blur-md border border-white/10 text-[10px] font-mono text-neutral-300 shadow-lg">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#ff6900]" />
-          <span className="font-semibold text-white/90 truncate max-w-[170px]">{placeName}</span>
-        </div>
-      </div>
+      {/* Floating Place Identifier Badge & Top Badge */}
+      {showBadges && (
+        <>
+          <div className="absolute top-2.5 left-2.5 z-10 pointer-events-none">
+            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/80 backdrop-blur-md border border-white/10 text-[10px] font-mono text-neutral-300 shadow-lg">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#ff6900]" />
+              <span className="font-semibold text-white/90 truncate max-w-[170px]">{placeName}</span>
+            </div>
+          </div>
 
-      {badge && (
-        <div className="absolute top-2.5 right-2.5 z-10 pointer-events-none">
-          <span className="px-2.5 py-1 rounded-full bg-gradient-to-r from-[#ff6900] to-[#ff8c00] text-white text-[10px] font-bold shadow-[0_2px_10px_rgba(255,105,0,0.4)] flex items-center gap-1">
-            <Sparkles className="w-3 h-3" />
-            {badge}
-          </span>
-        </div>
+          {badge && (
+            <div className="absolute top-2.5 right-2.5 z-10 pointer-events-none">
+              <span className="px-2.5 py-1 rounded-full bg-gradient-to-r from-[#ff6900] to-[#ff8c00] text-white text-[10px] font-bold shadow-[0_2px_10px_rgba(255,105,0,0.4)] flex items-center gap-1">
+                <Sparkles className="w-3 h-3" />
+                {badge}
+              </span>
+            </div>
+          )}
+        </>
       )}
     </div>
   );
